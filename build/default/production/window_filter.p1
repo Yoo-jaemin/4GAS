@@ -1,0 +1,136 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[; ;stdbool.h: 15: typedef unsigned char bool;
+[; ;stdint.h: 13: typedef signed char int8_t;
+[; ;stdint.h: 20: typedef signed int int16_t;
+[; ;stdint.h: 28: typedef __int24 int24_t;
+[; ;stdint.h: 36: typedef signed long int int32_t;
+[; ;stdint.h: 52: typedef unsigned char uint8_t;
+[; ;stdint.h: 58: typedef unsigned int uint16_t;
+[; ;stdint.h: 65: typedef __uint24 uint24_t;
+[; ;stdint.h: 72: typedef unsigned long int uint32_t;
+[; ;stdint.h: 88: typedef signed char int_least8_t;
+[; ;stdint.h: 96: typedef signed int int_least16_t;
+[; ;stdint.h: 109: typedef __int24 int_least24_t;
+[; ;stdint.h: 118: typedef signed long int int_least32_t;
+[; ;stdint.h: 136: typedef unsigned char uint_least8_t;
+[; ;stdint.h: 143: typedef unsigned int uint_least16_t;
+[; ;stdint.h: 154: typedef __uint24 uint_least24_t;
+[; ;stdint.h: 162: typedef unsigned long int uint_least32_t;
+[; ;stdint.h: 181: typedef signed char int_fast8_t;
+[; ;stdint.h: 188: typedef signed int int_fast16_t;
+[; ;stdint.h: 200: typedef __int24 int_fast24_t;
+[; ;stdint.h: 208: typedef signed long int int_fast32_t;
+[; ;stdint.h: 224: typedef unsigned char uint_fast8_t;
+[; ;stdint.h: 230: typedef unsigned int uint_fast16_t;
+[; ;stdint.h: 240: typedef __uint24 uint_fast24_t;
+[; ;stdint.h: 247: typedef unsigned long int uint_fast32_t;
+[; ;stdint.h: 268: typedef int32_t intmax_t;
+[; ;stdint.h: 282: typedef uint32_t uintmax_t;
+[; ;stdint.h: 289: typedef int16_t intptr_t;
+[; ;stdint.h: 294: typedef uint16_t uintptr_t;
+[; ;window_filter.h: 12: float window_moving_average_recursion(float fdata, uint8_t window_size);
+[; ;window_filter.h: 13: float Average_filter(float f_data);
+"13 window_filter.c
+[v _g_moving_buffer `f ~T0 @X0 -> 12 `i e ]
+[i _g_moving_buffer
+:U ..
+-> .0.0 `f
+..
+]
+[; ;window_filter.c: 13: float g_moving_buffer[12] = {0.0f, };
+"14
+[v _g_Num_of_sample `ui ~T0 @X0 1 e ]
+[; ;window_filter.c: 14: uint16_t g_Num_of_sample;
+"15
+[v _prev_average `f ~T0 @X0 1 e ]
+[; ;window_filter.c: 15: float prev_average;
+"17
+[v _window_moving_average_recursion `(f ~T0 @X0 1 ef2`f`uc ]
+"18
+{
+[; ;window_filter.c: 17: float window_moving_average_recursion(float fdata, uint8_t window_size)
+[; ;window_filter.c: 18: {
+[e :U _window_moving_average_recursion ]
+"17
+[v _fdata `f ~T0 @X0 1 r1 ]
+[v _window_size `uc ~T0 @X0 1 r2 ]
+"18
+[f ]
+"19
+[v _idx `uc ~T0 @X0 1 a ]
+"20
+[v F41 `f ~T0 @X0 1 s avg ]
+[i F41
+-> .0.0 `f
+]
+"22
+[v _size `uc ~T0 @X0 1 a ]
+[; ;window_filter.c: 19: uint8_t idx;
+[; ;window_filter.c: 20: static float avg = 0.0f;
+[; ;window_filter.c: 22: uint8_t size = window_size;
+[e = _size _window_size ]
+[; ;window_filter.c: 24: avg = avg + (fdata - g_moving_buffer[0]) / size;
+"24
+[e = F41 + F41 / - _fdata *U + &U _g_moving_buffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _g_moving_buffer `ui `ux -> _size `f ]
+[; ;window_filter.c: 26: for (idx = 0; idx < size -1; idx++)
+"26
+{
+[e = _idx -> -> 0 `i `uc ]
+[e $U 5  ]
+"27
+[e :U 2 ]
+[; ;window_filter.c: 27: g_moving_buffer[idx] = g_moving_buffer[idx +1];
+[e = *U + &U _g_moving_buffer * -> _idx `ux -> -> # *U &U _g_moving_buffer `ui `ux *U + &U _g_moving_buffer * -> -> + -> _idx `i -> 1 `i `ui `ux -> -> # *U &U _g_moving_buffer `ui `ux ]
+"26
+[e ++ _idx -> -> 1 `i `uc ]
+[e :U 5 ]
+[e $ < -> _idx `i - -> _size `i -> 1 `i 2  ]
+[e :U 3 ]
+"27
+}
+[; ;window_filter.c: 29: g_moving_buffer[idx] = fdata;
+"29
+[e = *U + &U _g_moving_buffer * -> _idx `ux -> -> # *U &U _g_moving_buffer `ui `ux _fdata ]
+[; ;window_filter.c: 31: return avg;
+"31
+[e ) F41 ]
+[e $UE 1  ]
+[; ;window_filter.c: 32: }
+"32
+[e :UE 1 ]
+}
+"34
+[v _Average_filter `(f ~T0 @X0 1 ef1`f ]
+"35
+{
+[; ;window_filter.c: 34: float Average_filter(float f_data)
+[; ;window_filter.c: 35: {
+[e :U _Average_filter ]
+"34
+[v _f_data `f ~T0 @X0 1 r1 ]
+"35
+[f ]
+"36
+[v _average `f ~T0 @X0 1 a ]
+[v _alpha `f ~T0 @X0 1 a ]
+[; ;window_filter.c: 36: float average, alpha;
+[; ;window_filter.c: 37: g_Num_of_sample += 1;
+"37
+[e =+ _g_Num_of_sample -> -> 1 `i `ui ]
+[; ;window_filter.c: 38: alpha = (float)((g_Num_of_sample -1) / g_Num_of_sample);
+"38
+[e = _alpha -> / - _g_Num_of_sample -> -> 1 `i `ui _g_Num_of_sample `f ]
+[; ;window_filter.c: 39: average = alpha * prev_average + (1- alpha)*f_data;
+"39
+[e = _average + * _alpha _prev_average * - -> -> 1 `i `f _alpha _f_data ]
+[; ;window_filter.c: 40: prev_average = average;
+"40
+[e = _prev_average _average ]
+[; ;window_filter.c: 41: return average;
+"41
+[e ) _average ]
+[e $UE 6  ]
+[; ;window_filter.c: 42: }
+"42
+[e :UE 6 ]
+}

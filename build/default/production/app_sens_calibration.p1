@@ -1,0 +1,451 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"13 app_sens_calibration.h
+[s S10 `uc 1 `uc 1 ]
+[n S10 . seq zero_cal ]
+"25 app_sens_calibration.c
+[v _g_sens_calib `S10 ~T0 @X0 0 e ]
+"38
+[c E238 0 1 2 .. ]
+[n E238 . CALIB_INIT CALIB_WAIT CALIB_ZERO  ]
+"9 nvm.h
+[s S3 `uc 1 `uc 1 `uc 1 `uc 1 `Quc -> 4 `i `Qf -> 3 `i `Qf -> 3 `i `Qf -> 3 `i `Qf -> 3 `i `Qf -> 3 `i `l 1 `f 1 `f 1 `f 1 `f 1 `ul 1 `ul 1 `ul 1 `Quc -> 8 `i ]
+[n S3 . filter_mode temp_cmp temp_corf CO2_ABC window_size baseLine_uV span_uV CalibrationGas gas_slope gasOffset co2Offset tempOffset humiOffset calib_temp KMf_e_measure exectime usedtime buildtime serialNum ]
+"7
+[u S2 `Quc -> 108 `i `QS3 1 ]
+[n S2 . byte . ]
+"43
+[s S4 `uc 1 `S2 1 ]
+[n S4 . status flash ]
+"24 app_sens_calibration.c
+[v _g_nvm `S4 ~T0 @X0 0 e ]
+"45
+[c E142 0 1 .. ]
+[n E142 e_GasSensValue LV_GAS_VOLT LV_GAS_CONCEN  ]
+[v F155 `Qf ~T0 @X0 + -> . `E142 1 `i -> 1 `i t ]
+[c E145 0 1 2 .. ]
+[n E145 e_SensValue LV_TEMP LV_HUMI CMP_TEMP  ]
+"29 sensor.h
+[s S7 `F155 -> 3 `i `ui 1 `f + -> . `E145 2 `i -> 1 `i ]
+[n S7 . toxic_gas co2_gas tempHumi ]
+"27 app_sens_calibration.c
+[v _Last_value `S7 ~T0 @X0 0 e ]
+"45 bsp/TES0902.h
+[v _CMD_manual_cal `(v ~T0 @X0 0 ef ]
+"56 nvm.h
+[v _nvm_write_flash_all `(uc ~T0 @X0 0 ef1`*S2 ]
+"23 app_sens_calibration.c
+[v _g_usb_state `uc ~T0 @X0 0 e ]
+"59
+[c E46 0 1 2 .. ]
+[n E46 . USB_NONE USB_DETACHED USB_ATTACHED  ]
+"70 bsp/leds.h
+[v _LED_Off `(v ~T0 @X0 0 ef ]
+"64 app_sens_calibration.c
+[c E101 0 1 2 .. ]
+[n E101 . LED_NONE LED_RED LED_GREEN  ]
+"52 bsp/leds.h
+[v _LED_On `(v ~T0 @X0 0 ef1`E101 ]
+"19 app_led_task.h
+[s S9 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
+[n S9 . seq last_state isBlink toggle twoYear ]
+"26 app_sens_calibration.c
+[v _g_led_status `S9 ~T0 @X0 0 e ]
+"76
+[c E214 0 1 2 3 4 5 6 7 8 9 10 .. ]
+[n E214 . LED_INIT LED_READY LED_WAIT_OFF LED_CALIB LED_WARMUP LED_COMMAND LED_ZEROCAL LED_ZEROCAL_END LED_FAIL LED_ALLOFF LED_NOTHING  ]
+[; ;stdbool.h: 15: typedef unsigned char bool;
+[; ;stdint.h: 13: typedef signed char int8_t;
+[; ;stdint.h: 20: typedef signed int int16_t;
+[; ;stdint.h: 28: typedef __int24 int24_t;
+[; ;stdint.h: 36: typedef signed long int int32_t;
+[; ;stdint.h: 52: typedef unsigned char uint8_t;
+[; ;stdint.h: 58: typedef unsigned int uint16_t;
+[; ;stdint.h: 65: typedef __uint24 uint24_t;
+[; ;stdint.h: 72: typedef unsigned long int uint32_t;
+[; ;stdint.h: 88: typedef signed char int_least8_t;
+[; ;stdint.h: 96: typedef signed int int_least16_t;
+[; ;stdint.h: 109: typedef __int24 int_least24_t;
+[; ;stdint.h: 118: typedef signed long int int_least32_t;
+[; ;stdint.h: 136: typedef unsigned char uint_least8_t;
+[; ;stdint.h: 143: typedef unsigned int uint_least16_t;
+[; ;stdint.h: 154: typedef __uint24 uint_least24_t;
+[; ;stdint.h: 162: typedef unsigned long int uint_least32_t;
+[; ;stdint.h: 181: typedef signed char int_fast8_t;
+[; ;stdint.h: 188: typedef signed int int_fast16_t;
+[; ;stdint.h: 200: typedef __int24 int_fast24_t;
+[; ;stdint.h: 208: typedef signed long int int_fast32_t;
+[; ;stdint.h: 224: typedef unsigned char uint_fast8_t;
+[; ;stdint.h: 230: typedef unsigned int uint_fast16_t;
+[; ;stdint.h: 240: typedef __uint24 uint_fast24_t;
+[; ;stdint.h: 247: typedef unsigned long int uint_fast32_t;
+[; ;stdint.h: 268: typedef int32_t intmax_t;
+[; ;stdint.h: 282: typedef uint32_t uintmax_t;
+[; ;stdint.h: 289: typedef int16_t intptr_t;
+[; ;stdint.h: 294: typedef uint16_t uintptr_t;
+[; ;board.h: 46: typedef union {
+[; ;board.h: 47: int16_t i16_data;
+[; ;board.h: 48: uint16_t u16_data;
+[; ;board.h: 49: __pack uint8_t u8_Data[2];
+[; ;board.h: 50: } u_2byte_Conv;
+[; ;board.h: 52: enum {
+[; ;board.h: 53: CELSIUS,
+[; ;board.h: 54: FAHRENHEIT
+[; ;board.h: 55: };
+[; ;board.h: 57: enum {
+[; ;board.h: 58: RAW_MODE,
+[; ;board.h: 59: FIL_MODE
+[; ;board.h: 60: };
+[; ;board.h: 62: enum {
+[; ;board.h: 63: GAS_CH0,
+[; ;board.h: 64: GAS_CH1,
+[; ;board.h: 65: GAS_CH2,
+[; ;board.h: 66: GAS_CH3
+[; ;board.h: 67: };
+[; ;board.h: 69: enum {
+[; ;board.h: 70: USB_NONE,
+[; ;board.h: 71: USB_DETACHED,
+[; ;board.h: 72: USB_ATTACHED
+[; ;board.h: 73: };
+[; ;board.h: 75: enum {
+[; ;board.h: 76: TEMP_CMP_OFF,
+[; ;board.h: 77: TEMP_CMP_ON
+[; ;board.h: 78: };
+[; ;board.h: 80: enum {
+[; ;board.h: 81: OFF,
+[; ;board.h: 82: ON
+[; ;board.h: 83: };
+[; ;board.h: 143: void write_command(const uint8_t* buff);
+[; ;board.h: 144: uint16_t* get_product_desc();
+[; ;nvm.h: 7: typedef union {
+[; ;nvm.h: 8: __pack uint8_t byte[108];
+[; ;nvm.h: 9: __pack struct {
+[; ;nvm.h: 10: uint8_t filter_mode;
+[; ;nvm.h: 11: uint8_t temp_cmp;
+[; ;nvm.h: 12: uint8_t temp_corf;
+[; ;nvm.h: 13: uint8_t CO2_ABC;
+[; ;nvm.h: 14: __pack uint8_t window_size[4];
+[; ;nvm.h: 16: __pack float baseLine_uV[3];
+[; ;nvm.h: 17: __pack float span_uV[3];
+[; ;nvm.h: 18: __pack float CalibrationGas[3];
+[; ;nvm.h: 19: __pack float gas_slope[3];
+[; ;nvm.h: 20: __pack float gasOffset[3];
+[; ;nvm.h: 22: int32_t co2Offset;
+[; ;nvm.h: 23: float tempOffset;
+[; ;nvm.h: 24: float humiOffset;
+[; ;nvm.h: 25: float calib_temp;
+[; ;nvm.h: 28: float KMf_e_measure;
+[; ;nvm.h: 30: uint32_t exectime;
+[; ;nvm.h: 31: uint32_t usedtime;
+[; ;nvm.h: 32: uint32_t buildtime;
+[; ;nvm.h: 33: __pack uint8_t serialNum[8];
+[; ;nvm.h: 34: };
+[; ;nvm.h: 35: } u_Flash_Nvm;
+[; ;nvm.h: 38: typedef enum {
+[; ;nvm.h: 39: NVM_INIT_NONE,
+[; ;nvm.h: 40: NVM_INIT_FLASH,
+[; ;nvm.h: 41: }e_Nvm_Status;
+[; ;nvm.h: 43: typedef struct {
+[; ;nvm.h: 44: uint8_t status;
+[; ;nvm.h: 45: u_Flash_Nvm flash;
+[; ;nvm.h: 46: } s_Nvm;
+[; ;nvm.h: 52: void nvm_init(void);
+[; ;nvm.h: 53: void nvm_clear(void);
+[; ;nvm.h: 54: void nvm_clear_all(void);
+[; ;nvm.h: 56: bool nvm_write_flash_all(u_Flash_Nvm* flash);
+[; ;nvm.h: 57: void nvm_read_flash_all(u_Flash_Nvm* flash);
+[; ;leds.h: 27: typedef enum
+[; ;leds.h: 28: {
+[; ;leds.h: 29: LED_NONE,
+[; ;leds.h: 30: LED_RED,
+[; ;leds.h: 31: LED_GREEN
+[; ;leds.h: 32: } LED;
+[; ;leds.h: 52: void LED_On(LED led);
+[; ;leds.h: 70: void LED_Off(void);
+[; ;leds.h: 88: void LED_Toggle(LED led);
+[; ;leds.h: 106: bool LED_Get(LED led);
+[; ;leds.h: 123: void LED_Enable(LED led);
+[; ;stdbool.h: 15: typedef unsigned char bool;
+[; ;TES0902.h: 31: typedef struct {
+[; ;TES0902.h: 32: __pack uint8_t sync[2];
+[; ;TES0902.h: 33: uint8_t cmd;
+[; ;TES0902.h: 34: uint8_t len;
+[; ;TES0902.h: 35: __pack uint8_t data[8];
+[; ;TES0902.h: 36: __pack uint8_t crc[2];
+[; ;TES0902.h: 37: } s_Tes0902_frame;
+[; ;TES0902.h: 44: void CMD_get_ppm(void);
+[; ;TES0902.h: 45: void CMD_manual_cal(void);
+[; ;TES0902.h: 46: void CMD_set_ABC_on(uint8_t value);
+[; ;TES0902.h: 48: void CMD_get_version(void);
+[; ;TES0902.h: 49: void CMD_get_serialNumber(void);
+[; ;TES0902.h: 51: uint16_t Calculate_CRC16(uint8_t *crc, int crc_length);
+[; ;TES0902.h: 52: bool CRC_check(void);
+[; ;TES0902.h: 54: void tes0902_polling_mode(void);
+[; ;TES0902.h: 55: void tes0902_ABC_OFF(uint8_t status);
+[; ;sensor.h: 13: enum e_GasSensValue {
+[; ;sensor.h: 14: LV_GAS_VOLT,
+[; ;sensor.h: 15: LV_GAS_CONCEN
+[; ;sensor.h: 16: };
+[; ;sensor.h: 18: enum e_SensValue {
+[; ;sensor.h: 19: LV_TEMP,
+[; ;sensor.h: 20: LV_HUMI,
+[; ;sensor.h: 21: CMP_TEMP
+[; ;sensor.h: 22: };
+[; ;sensor.h: 24: typedef struct {
+[; ;sensor.h: 25: bool temp;
+[; ;sensor.h: 26: bool gas_lmp[3];
+[; ;sensor.h: 27: } s_Sensor_init;
+[; ;sensor.h: 29: typedef struct {
+[; ;sensor.h: 30: __pack float toxic_gas[3][LV_GAS_CONCEN+1];
+[; ;sensor.h: 31: uint16_t co2_gas;
+[; ;sensor.h: 32: float tempHumi[CMP_TEMP+1];
+[; ;sensor.h: 33: } s_Sens_Measure_value;
+[; ;sensor.h: 40: void Sensors_initialize(void);
+[; ;sensor.h: 41: bool sensor_lmp_initialize(uint8_t chNum);
+[; ;sensor.h: 42: bool sensor_adc_initialize(uint8_t chNum);
+[; ;sensor.h: 44: bool sensor_ADC_read(uint8_t chNum, int16_t* raw_adc);
+[; ;sensor.h: 45: float ADCto_uVoltage(int16_t raw_adc, uint8_t gain);
+[; ;sensor.h: 46: bool gasSensor_read(uint8_t chNum);
+[; ;sensor.h: 48: bool sensor_read_temp_humi(float* temp, float* humi);
+[; ;sensor.h: 49: void sensor_temp_fahrenheit(float* temp);
+[; ;sensor.h: 50: bool tempSensor_read(void);
+[; ;sensor.h: 52: bool sensor_temp_mode(uint8_t chNum);
+[; ;sensor.h: 53: bool sensor_gas_mode(uint8_t chNum);
+[; ;sensor.h: 54: bool CMP_temp_read(uint8_t chNum);
+[; ;sensor.h: 55: bool gas_init(uint8_t chNum);
+[; ;app_sens_measure.h: 10: enum e_Measure_Seq {
+[; ;app_sens_measure.h: 11: SENS_INIT,
+[; ;app_sens_measure.h: 12: SENS_READY,
+[; ;app_sens_measure.h: 13: SENS_TEMP_MODE,
+[; ;app_sens_measure.h: 14: SENS_TEMP_MEASURE,
+[; ;app_sens_measure.h: 15: SENS_GAS_MODE,
+[; ;app_sens_measure.h: 16: SENS_GAS_MODE_MEASURE,
+[; ;app_sens_measure.h: 17: SENS_GAS_INIT,
+[; ;app_sens_measure.h: 18: SENS_GAS_MEASURE,
+[; ;app_sens_measure.h: 19: SENS_MEASURE_APPLY,
+[; ;app_sens_measure.h: 20: SENS_MEASURE_CHECK,
+[; ;app_sens_measure.h: 21: SENS_DISPLAY,
+[; ;app_sens_measure.h: 22: SENS_WAIT
+[; ;app_sens_measure.h: 23: };
+[; ;app_sens_measure.h: 25: typedef struct {
+[; ;app_sens_measure.h: 26: uint8_t seq;
+[; ;app_sens_measure.h: 27: uint8_t next_seq;
+[; ;app_sens_measure.h: 28: uint8_t seq_count;
+[; ;app_sens_measure.h: 30: bool isLMP_InitDone[2];
+[; ;app_sens_measure.h: 31: bool isADC_InitDone[2];
+[; ;app_sens_measure.h: 32: bool isTemp_InitDone;
+[; ;app_sens_measure.h: 34: bool isGasSensor_Success[3];
+[; ;app_sens_measure.h: 35: bool isCO2_Success;
+[; ;app_sens_measure.h: 36: bool isTemp_Success;
+[; ;app_sens_measure.h: 38: } s_Sens_Measure;
+[; ;app_sens_measure.h: 45: void sensMeasure_init();
+[; ;app_sens_measure.h: 46: void sensMeasure_task();
+[; ;app_led_task.h: 5: typedef enum {
+[; ;app_led_task.h: 6: LED_INIT,
+[; ;app_led_task.h: 7: LED_READY,
+[; ;app_led_task.h: 8: LED_WAIT_OFF,
+[; ;app_led_task.h: 9: LED_CALIB,
+[; ;app_led_task.h: 10: LED_WARMUP,
+[; ;app_led_task.h: 11: LED_COMMAND,
+[; ;app_led_task.h: 12: LED_ZEROCAL,
+[; ;app_led_task.h: 13: LED_ZEROCAL_END,
+[; ;app_led_task.h: 14: LED_FAIL,
+[; ;app_led_task.h: 15: LED_ALLOFF,
+[; ;app_led_task.h: 16: LED_NOTHING,
+[; ;app_led_task.h: 17: } e_Led_Seq;
+[; ;app_led_task.h: 19: typedef struct {
+[; ;app_led_task.h: 20: uint8_t seq;
+[; ;app_led_task.h: 21: uint8_t last_state;
+[; ;app_led_task.h: 23: bool isBlink;
+[; ;app_led_task.h: 24: bool toggle;
+[; ;app_led_task.h: 25: bool twoYear;
+[; ;app_led_task.h: 26: } s_Led_Status;
+[; ;app_led_task.h: 33: void led_init(void);
+[; ;app_led_task.h: 34: void led_task(void);
+[; ;app_sens_calibration.h: 7: typedef enum {
+[; ;app_sens_calibration.h: 8: CALIB_INIT,
+[; ;app_sens_calibration.h: 9: CALIB_WAIT,
+[; ;app_sens_calibration.h: 10: CALIB_ZERO
+[; ;app_sens_calibration.h: 11: } e_Calib_Seq;
+[; ;app_sens_calibration.h: 13: typedef struct {
+[; ;app_sens_calibration.h: 14: uint8_t seq;
+[; ;app_sens_calibration.h: 15: bool zero_cal;
+[; ;app_sens_calibration.h: 16: } s_Sens_Calib;
+[; ;app_sens_calibration.h: 22: void sens_ZeroCalib_init(void);
+[; ;app_sens_calibration.h: 23: void sens_ZeroCalib_task(void);
+[; ;app_sens_calibration.c: 23: extern uint8_t g_usb_state;
+[; ;app_sens_calibration.c: 24: extern s_Nvm g_nvm;
+[; ;app_sens_calibration.c: 25: extern s_Sens_Calib g_sens_calib;
+[; ;app_sens_calibration.c: 26: extern s_Led_Status g_led_status;
+[; ;app_sens_calibration.c: 27: extern s_Sens_Measure_value Last_value;
+"29 app_sens_calibration.c
+[v _g_calib_count `Vul ~T0 @X0 1 e ]
+[; ;app_sens_calibration.c: 29: volatile uint32_t g_calib_count;
+[; ;app_sens_calibration.c: 33: static bool sens_ZeroCalibration(void);
+"36
+[v _sens_ZeroCalib_init `(v ~T0 @X0 1 ef ]
+"37
+{
+[; ;app_sens_calibration.c: 36: void sens_ZeroCalib_init(void)
+[; ;app_sens_calibration.c: 37: {
+[e :U _sens_ZeroCalib_init ]
+[f ]
+[; ;app_sens_calibration.c: 38: g_sens_calib.seq = CALIB_INIT;
+"38
+[e = . _g_sens_calib 0 -> . `E238 0 `uc ]
+[; ;app_sens_calibration.c: 39: g_sens_calib.zero_cal = 0;
+"39
+[e = . _g_sens_calib 1 -> -> 0 `i `uc ]
+[; ;app_sens_calibration.c: 40: g_calib_count = 0;
+"40
+[e = _g_calib_count -> -> -> 0 `i `l `ul ]
+[; ;app_sens_calibration.c: 41: }
+"41
+[e :UE 11 ]
+}
+"43
+[v _sens_ZeroCalibration `(uc ~T0 @X0 1 sf ]
+"44
+{
+[; ;app_sens_calibration.c: 43: static bool sens_ZeroCalibration(void)
+[; ;app_sens_calibration.c: 44: {
+[e :U _sens_ZeroCalibration ]
+[f ]
+[; ;app_sens_calibration.c: 45: g_nvm.flash.baseLine_uV[0] = Last_value.toxic_gas[0][LV_GAS_VOLT];
+"45
+[e = *U + &U . . . _g_nvm 1 1 5 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 5 `ui `ux *U + &U *U + &U . _Last_value 0 * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U . _Last_value 0 `ui -> + -> . `E142 1 `i -> 1 `i `ui `ux * -> . `E142 0 `ux -> -> # *U &U *U + &U . _Last_value 0 * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U . _Last_value 0 `ui -> + -> . `E142 1 `i -> 1 `i `ui `ux `ui `ux ]
+[; ;app_sens_calibration.c: 46: g_nvm.flash.baseLine_uV[1] = Last_value.toxic_gas[1][LV_GAS_VOLT];
+"46
+[e = *U + &U . . . _g_nvm 1 1 5 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 5 `ui `ux *U + &U *U + &U . _Last_value 0 * -> -> -> 1 `i `ui `ux -> * -> # *U &U *U &U . _Last_value 0 `ui -> + -> . `E142 1 `i -> 1 `i `ui `ux * -> . `E142 0 `ux -> -> # *U &U *U + &U . _Last_value 0 * -> -> -> 1 `i `ui `ux -> * -> # *U &U *U &U . _Last_value 0 `ui -> + -> . `E142 1 `i -> 1 `i `ui `ux `ui `ux ]
+[; ;app_sens_calibration.c: 47: g_nvm.flash.baseLine_uV[2] = Last_value.toxic_gas[2][LV_GAS_VOLT];
+"47
+[e = *U + &U . . . _g_nvm 1 1 5 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 5 `ui `ux *U + &U *U + &U . _Last_value 0 * -> -> -> 2 `i `ui `ux -> * -> # *U &U *U &U . _Last_value 0 `ui -> + -> . `E142 1 `i -> 1 `i `ui `ux * -> . `E142 0 `ux -> -> # *U &U *U + &U . _Last_value 0 * -> -> -> 2 `i `ui `ux -> * -> # *U &U *U &U . _Last_value 0 `ui -> + -> . `E142 1 `i -> 1 `i `ui `ux `ui `ux ]
+[; ;app_sens_calibration.c: 48: g_nvm.flash.gas_slope[0] = (g_nvm.flash.span_uV[0] - g_nvm.flash.baseLine_uV[0]) / g_nvm.flash.CalibrationGas[0];
+"48
+[e = *U + &U . . . _g_nvm 1 1 8 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 8 `ui `ux / - *U + &U . . . _g_nvm 1 1 6 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 6 `ui `ux *U + &U . . . _g_nvm 1 1 5 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 5 `ui `ux *U + &U . . . _g_nvm 1 1 7 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 7 `ui `ux ]
+[; ;app_sens_calibration.c: 49: g_nvm.flash.gas_slope[1] = (g_nvm.flash.baseLine_uV[1] - g_nvm.flash.span_uV[1]) / (20.8f - g_nvm.flash.CalibrationGas[1]);
+"49
+[e = *U + &U . . . _g_nvm 1 1 8 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 8 `ui `ux / - *U + &U . . . _g_nvm 1 1 5 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 5 `ui `ux *U + &U . . . _g_nvm 1 1 6 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 6 `ui `ux - -> .20.8 `f *U + &U . . . _g_nvm 1 1 7 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 7 `ui `ux ]
+[; ;app_sens_calibration.c: 50: g_nvm.flash.gas_slope[2] = (g_nvm.flash.span_uV[2] - g_nvm.flash.baseLine_uV[2]) / g_nvm.flash.CalibrationGas[2];
+"50
+[e = *U + &U . . . _g_nvm 1 1 8 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 8 `ui `ux / - *U + &U . . . _g_nvm 1 1 6 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 6 `ui `ux *U + &U . . . _g_nvm 1 1 5 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 5 `ui `ux *U + &U . . . _g_nvm 1 1 7 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 7 `ui `ux ]
+[; ;app_sens_calibration.c: 51: g_nvm.flash.calib_temp = Last_value.tempHumi[CMP_TEMP];
+"51
+[e = . . . _g_nvm 1 1 13 *U + &U . _Last_value 2 * -> . `E145 2 `ux -> -> # *U &U . _Last_value 2 `ui `ux ]
+[; ;app_sens_calibration.c: 52: CMD_manual_cal();
+"52
+[e ( _CMD_manual_cal ..  ]
+[; ;app_sens_calibration.c: 53: g_sens_calib.zero_cal = nvm_write_flash_all(&g_nvm.flash);
+"53
+[e = . _g_sens_calib 1 ( _nvm_write_flash_all (1 &U . _g_nvm 1 ]
+[; ;app_sens_calibration.c: 54: return g_sens_calib.zero_cal;
+"54
+[e ) . _g_sens_calib 1 ]
+[e $UE 12  ]
+[; ;app_sens_calibration.c: 55: }
+"55
+[e :UE 12 ]
+}
+"57
+[v _sens_ZeroCalib_task `(v ~T0 @X0 1 ef ]
+"58
+{
+[; ;app_sens_calibration.c: 57: void sens_ZeroCalib_task(void)
+[; ;app_sens_calibration.c: 58: {
+[e :U _sens_ZeroCalib_task ]
+[f ]
+[; ;app_sens_calibration.c: 59: if ((g_usb_state == USB_DETACHED) && (g_sens_calib.zero_cal == 0)) {
+"59
+[e $ ! && == -> _g_usb_state `i -> . `E46 1 `i == -> . _g_sens_calib 1 `i -> 0 `i 14  ]
+{
+[; ;app_sens_calibration.c: 60: switch (g_sens_calib.seq)
+"60
+[e $U 16  ]
+[; ;app_sens_calibration.c: 61: {
+"61
+{
+[; ;app_sens_calibration.c: 62: case CALIB_INIT:
+"62
+[e :U 17 ]
+[; ;app_sens_calibration.c: 63: LED_Off();
+"63
+[e ( _LED_Off ..  ]
+[; ;app_sens_calibration.c: 64: LED_On(LED_GREEN);
+"64
+[e ( _LED_On (1 . `E101 2 ]
+[; ;app_sens_calibration.c: 65: g_calib_count = 0;
+"65
+[e = _g_calib_count -> -> -> 0 `i `l `ul ]
+[; ;app_sens_calibration.c: 66: g_sens_calib.seq = CALIB_WAIT;
+"66
+[e = . _g_sens_calib 0 -> . `E238 1 `uc ]
+[; ;app_sens_calibration.c: 67: break;
+"67
+[e $U 15  ]
+[; ;app_sens_calibration.c: 68: case CALIB_WAIT:
+"68
+[e :U 18 ]
+[; ;app_sens_calibration.c: 69: if (g_calib_count > 30000) {
+"69
+[e $ ! > _g_calib_count -> -> -> 30000 `i `l `ul 19  ]
+{
+[; ;app_sens_calibration.c: 70: g_calib_count = 0;
+"70
+[e = _g_calib_count -> -> -> 0 `i `l `ul ]
+[; ;app_sens_calibration.c: 71: g_sens_calib.seq = CALIB_ZERO;
+"71
+[e = . _g_sens_calib 0 -> . `E238 2 `uc ]
+"72
+}
+[e :U 19 ]
+[; ;app_sens_calibration.c: 72: } break;
+[e $U 15  ]
+[; ;app_sens_calibration.c: 73: case CALIB_ZERO:
+"73
+[e :U 20 ]
+[; ;app_sens_calibration.c: 74: if (sens_ZeroCalibration() == 0)
+"74
+[e $ ! == -> ( _sens_ZeroCalibration ..  `i -> 0 `i 21  ]
+[; ;app_sens_calibration.c: 75: g_sens_calib.seq = CALIB_ZERO;
+"75
+[e = . _g_sens_calib 0 -> . `E238 2 `uc ]
+[e $U 22  ]
+"76
+[e :U 21 ]
+[; ;app_sens_calibration.c: 76: else g_led_status.seq = LED_ZEROCAL_END;
+[e = . _g_led_status 0 -> . `E214 7 `uc ]
+[e :U 22 ]
+[; ;app_sens_calibration.c: 77: break;
+"77
+[e $U 15  ]
+"78
+}
+[; ;app_sens_calibration.c: 78: }
+[e $U 15  ]
+"60
+[e :U 16 ]
+[e [\ . _g_sens_calib 0 , $ -> . `E238 0 `uc 17
+ , $ -> . `E238 1 `uc 18
+ , $ -> . `E238 2 `uc 20
+ 15 ]
+"78
+[e :U 15 ]
+"79
+}
+[; ;app_sens_calibration.c: 79: } else {
+[e $U 23  ]
+[e :U 14 ]
+{
+[; ;app_sens_calibration.c: 80: g_calib_count = 0;
+"80
+[e = _g_calib_count -> -> -> 0 `i `l `ul ]
+[; ;app_sens_calibration.c: 81: return;
+"81
+[e $UE 13  ]
+"82
+}
+[e :U 23 ]
+[; ;app_sens_calibration.c: 82: }
+[; ;app_sens_calibration.c: 83: }
+"83
+[e :UE 13 ]
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/UA5x_FW/4Gas/ua58-kfg-master/ua58-kfg_/4Gas.X/board.h</file>
+            <file>file:/D:/UA5x_FW/4Gas/ua58-kfg-master/ua58-kfg_/4Gas.X/app_tes0902_task.c</file>
+            <file>file:/D:/UA5x_FW/4Gas/ua58-kfg-master/ua58-kfg_/4Gas.X/app_sens_measure.c</file>
+            <file>file:/D:/UA5x_FW/4Gas/ua58-kfg-master/ua58-kfg_/4Gas.X/app_atcommand.c</file>
+            <file>file:/D:/UA5x_FW/4Gas/ua58-kfg-master/ua58-kfg_/4Gas.X/main.c</file>
+            <file>file:/D:/UA5x_FW/4Gas/ua58-kfg-master/ua58-kfg_/4Gas.X/nvm.c</file>
+            <file>file:/D:/UA5x_FW/4Gas/ua58-kfg-master/ua58-kfg_/4Gas.X/nvm.h</file>
+            <file>file:/D:/UA5x_FW/4Gas/ua58-kfg-master/ua58-kfg_/4Gas.X/sensor.c</file>
+            <file>file:/D:/UA5x_FW/4Gas/ua58-kfg-master/ua58-kfg_/4Gas.X/sensor.h</file>
+            <file>file:/D:/UA5x_FW/4Gas/ua58-kfg-master/ua58-kfg_/4Gas.X/bsp/TES0902.c</file>
+            <file>file:/D:/UA5x_FW/4Gas/ua58-kfg-master/ua58-kfg_/4Gas.X/bsp/TES0902.h</file>
+            <file>file:/D:/UA5x_FW/4Gas/ua58-kfg-master/ua58-kfg_/4Gas.X/app_sens_calibration.c</file>
+        </group>
+    </open-files>
+</project-private>

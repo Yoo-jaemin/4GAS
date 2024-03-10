@@ -1,0 +1,652 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"9 nvm.h
+[s S8 `uc 1 `uc 1 `uc 1 `uc 1 `Quc -> 4 `i `Qf -> 3 `i `Qf -> 3 `i `Qf -> 3 `i `Qf -> 3 `i `Qf -> 3 `i `l 1 `f 1 `f 1 `f 1 `f 1 `ul 1 `ul 1 `ul 1 `Quc -> 8 `i ]
+[n S8 . filter_mode temp_cmp temp_corf CO2_ABC window_size baseLine_uV span_uV CalibrationGas gas_slope gasOffset co2Offset tempOffset humiOffset calib_temp KMf_e_measure exectime usedtime buildtime serialNum ]
+"7
+[u S7 `Quc -> 108 `i `QS8 1 ]
+[n S7 . byte . ]
+"43
+[s S9 `uc 1 `S7 1 ]
+[n S9 . status flash ]
+"18 nvm.c
+[v _g_nvm `S9 ~T0 @X0 0 e ]
+"22
+[c E44 0 1 .. ]
+[n E44 . RAW_MODE FIL_MODE  ]
+"23
+[c E41 0 1 .. ]
+[n E41 . CELSIUS FAHRENHEIT  ]
+"24
+[c E56 0 1 .. ]
+[n E56 . TEMP_CMP_OFF TEMP_CMP_ON  ]
+"25
+[c E59 0 1 .. ]
+[n E59 . OFF ON  ]
+"48
+[c E290 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 .. ]
+[n E290 . LEVEL_1 LEVEL_2 LEVEL_3 LEVEL_4 LEVEL_5 LEVEL_6 LEVEL_7 LEVEL_8 LEVEL_9 LEVEL_10 LEVEL_11 LEVEL_12 LEVEL_13 LEVEL_14 LEVEL_15  ]
+"79 util/build_time.h
+[v _build_time `(l ~T0 @X0 0 ef ]
+"57 nvm.h
+[v _nvm_read_flash_all `(v ~T0 @X0 0 ef1`*S7 ]
+"92 nvm.c
+[c E350 0 1 .. ]
+[n E350 . NVM_INIT_NONE NVM_INIT_FLASH  ]
+"144 board.h
+[v _get_product_desc `(*ui ~T0 @X0 0 ef ]
+"56 nvm.h
+[v _nvm_write_flash_all `(uc ~T0 @X0 0 ef1`*S7 ]
+"38 bsp/flash.h
+[v _flash_clear `(v ~T0 @X0 0 ef2`ul`ul ]
+"37
+[v _flash_writeBytes `(uc ~T0 @X0 0 ef3`ul`*uc`ui ]
+"36
+[v _flash_readBytes `(v ~T0 @X0 0 ef3`ul`*uc`ui ]
+[; ;stdint.h: 13: typedef signed char int8_t;
+[; ;stdint.h: 20: typedef signed int int16_t;
+[; ;stdint.h: 28: typedef __int24 int24_t;
+[; ;stdint.h: 36: typedef signed long int int32_t;
+[; ;stdint.h: 52: typedef unsigned char uint8_t;
+[; ;stdint.h: 58: typedef unsigned int uint16_t;
+[; ;stdint.h: 65: typedef __uint24 uint24_t;
+[; ;stdint.h: 72: typedef unsigned long int uint32_t;
+[; ;stdint.h: 88: typedef signed char int_least8_t;
+[; ;stdint.h: 96: typedef signed int int_least16_t;
+[; ;stdint.h: 109: typedef __int24 int_least24_t;
+[; ;stdint.h: 118: typedef signed long int int_least32_t;
+[; ;stdint.h: 136: typedef unsigned char uint_least8_t;
+[; ;stdint.h: 143: typedef unsigned int uint_least16_t;
+[; ;stdint.h: 154: typedef __uint24 uint_least24_t;
+[; ;stdint.h: 162: typedef unsigned long int uint_least32_t;
+[; ;stdint.h: 181: typedef signed char int_fast8_t;
+[; ;stdint.h: 188: typedef signed int int_fast16_t;
+[; ;stdint.h: 200: typedef __int24 int_fast24_t;
+[; ;stdint.h: 208: typedef signed long int int_fast32_t;
+[; ;stdint.h: 224: typedef unsigned char uint_fast8_t;
+[; ;stdint.h: 230: typedef unsigned int uint_fast16_t;
+[; ;stdint.h: 240: typedef __uint24 uint_fast24_t;
+[; ;stdint.h: 247: typedef unsigned long int uint_fast32_t;
+[; ;stdint.h: 268: typedef int32_t intmax_t;
+[; ;stdint.h: 282: typedef uint32_t uintmax_t;
+[; ;stdint.h: 289: typedef int16_t intptr_t;
+[; ;stdint.h: 294: typedef uint16_t uintptr_t;
+[; ;stdbool.h: 15: typedef unsigned char bool;
+[; ;assert.h: 18: extern void _fassert(int, const char *, const char *);
+[; ;assert.h: 25: extern void __builtin_software_breakpoint(void);
+[; ;board.h: 46: typedef union {
+[; ;board.h: 47: int16_t i16_data;
+[; ;board.h: 48: uint16_t u16_data;
+[; ;board.h: 49: __pack uint8_t u8_Data[2];
+[; ;board.h: 50: } u_2byte_Conv;
+[; ;board.h: 52: enum {
+[; ;board.h: 53: CELSIUS,
+[; ;board.h: 54: FAHRENHEIT
+[; ;board.h: 55: };
+[; ;board.h: 57: enum {
+[; ;board.h: 58: RAW_MODE,
+[; ;board.h: 59: FIL_MODE
+[; ;board.h: 60: };
+[; ;board.h: 62: enum {
+[; ;board.h: 63: GAS_CH0,
+[; ;board.h: 64: GAS_CH1,
+[; ;board.h: 65: GAS_CH2,
+[; ;board.h: 66: GAS_CH3
+[; ;board.h: 67: };
+[; ;board.h: 69: enum {
+[; ;board.h: 70: USB_NONE,
+[; ;board.h: 71: USB_DETACHED,
+[; ;board.h: 72: USB_ATTACHED
+[; ;board.h: 73: };
+[; ;board.h: 75: enum {
+[; ;board.h: 76: TEMP_CMP_OFF,
+[; ;board.h: 77: TEMP_CMP_ON
+[; ;board.h: 78: };
+[; ;board.h: 80: enum {
+[; ;board.h: 81: OFF,
+[; ;board.h: 82: ON
+[; ;board.h: 83: };
+[; ;board.h: 143: void write_command(const uint8_t* buff);
+[; ;board.h: 144: uint16_t* get_product_desc();
+[; ;flash.h: 10: typedef union
+[; ;flash.h: 11: {
+[; ;flash.h: 12: unsigned long Val;
+[; ;flash.h: 13: __pack unsigned short int w[2];
+[; ;flash.h: 14: __pack unsigned char v[4];
+[; ;flash.h: 15: __pack struct
+[; ;flash.h: 16: {
+[; ;flash.h: 17: unsigned short int LW;
+[; ;flash.h: 18: unsigned short int HW;
+[; ;flash.h: 19: } word;
+[; ;flash.h: 20: __pack struct
+[; ;flash.h: 21: {
+[; ;flash.h: 22: unsigned char LB;
+[; ;flash.h: 23: unsigned char HB;
+[; ;flash.h: 24: unsigned char UB;
+[; ;flash.h: 25: unsigned char MB;
+[; ;flash.h: 26: } byte;
+[; ;flash.h: 27: } DWORD_VAL;
+[; ;flash.h: 36: void flash_readBytes(uint32_t startaddr, uint8_t *flash_array, uint16_t num_bytes);
+[; ;flash.h: 37: bool flash_writeBytes(uint32_t startaddr, uint8_t *flash_array, uint16_t num_bytes);
+[; ;flash.h: 38: void flash_clear(uint32_t startaddr, uint32_t endaddr);
+[; ;lmp91000.h: 25: typedef enum
+[; ;lmp91000.h: 26: {
+[; ;lmp91000.h: 27: EN_CH0,
+[; ;lmp91000.h: 28: EN_CH1,
+[; ;lmp91000.h: 29: EN_CH2
+[; ;lmp91000.h: 30: } LMP_EN;
+[; ;lmp91000.h: 33: typedef enum {
+[; ;lmp91000.h: 34: EXTERNAL_REGISTOR,
+[; ;lmp91000.h: 35: R2p75K,
+[; ;lmp91000.h: 36: R3p5K,
+[; ;lmp91000.h: 37: R7K,
+[; ;lmp91000.h: 38: R14K,
+[; ;lmp91000.h: 39: R35K,
+[; ;lmp91000.h: 40: R120K,
+[; ;lmp91000.h: 41: R350K
+[; ;lmp91000.h: 42: } e_TIA_InternalGain;
+[; ;lmp91000.h: 45: typedef enum {
+[; ;lmp91000.h: 46: R10,
+[; ;lmp91000.h: 47: R33,
+[; ;lmp91000.h: 48: R50,
+[; ;lmp91000.h: 49: R100
+[; ;lmp91000.h: 50: } e_TIA_RLoad;
+[; ;lmp91000.h: 53: typedef enum {
+[; ;lmp91000.h: 54: INTERNAL,
+[; ;lmp91000.h: 55: EXTERNAL
+[; ;lmp91000.h: 56: } e_Ref_Voltage;
+[; ;lmp91000.h: 59: typedef enum {
+[; ;lmp91000.h: 60: S20P,
+[; ;lmp91000.h: 61: S50P,
+[; ;lmp91000.h: 62: S67P,
+[; ;lmp91000.h: 63: BYPASS
+[; ;lmp91000.h: 64: } e_InZ_sel;
+[; ;lmp91000.h: 67: typedef enum {
+[; ;lmp91000.h: 68: NAGATIVE,
+[; ;lmp91000.h: 69: POSITIVE
+[; ;lmp91000.h: 70: } e_Bias_sign;
+[; ;lmp91000.h: 73: typedef enum {
+[; ;lmp91000.h: 74: B0P,
+[; ;lmp91000.h: 75: B1P,
+[; ;lmp91000.h: 76: B2P,
+[; ;lmp91000.h: 77: B4P,
+[; ;lmp91000.h: 78: B6P,
+[; ;lmp91000.h: 79: B8P,
+[; ;lmp91000.h: 80: B10P,
+[; ;lmp91000.h: 81: B12P,
+[; ;lmp91000.h: 82: B14P,
+[; ;lmp91000.h: 83: B16P,
+[; ;lmp91000.h: 84: B18P,
+[; ;lmp91000.h: 85: B20P,
+[; ;lmp91000.h: 86: B22P,
+[; ;lmp91000.h: 87: B24P
+[; ;lmp91000.h: 88: } e_Bias_sel;
+[; ;lmp91000.h: 91: typedef enum {
+[; ;lmp91000.h: 92: DISABLE,
+[; ;lmp91000.h: 93: ENABLE
+[; ;lmp91000.h: 94: } e_FET;
+[; ;lmp91000.h: 97: typedef enum {
+[; ;lmp91000.h: 98: SLEEP,
+[; ;lmp91000.h: 99: GALVANIC_2LEAD,
+[; ;lmp91000.h: 100: STANBY,
+[; ;lmp91000.h: 101: AMPEROETRIC_3LEAD,
+[; ;lmp91000.h: 102: TEMP_MEASURE_TIAOFF = 6,
+[; ;lmp91000.h: 103: TEMP_MEASURE_TIAON = 7
+[; ;lmp91000.h: 104: } e_OP_Mode;
+[; ;lmp91000.h: 112: bool lmp91000_lock(uint8_t chNum);
+[; ;lmp91000.h: 113: bool lmp91000_unlock(uint8_t chNum);
+[; ;lmp91000.h: 114: bool lmp91000_isUnLocked(void);
+[; ;lmp91000.h: 116: bool lmp91000_isReady(uint8_t chNum);
+[; ;lmp91000.h: 117: bool lmp91000_get_status(uint8_t* preg, uint8_t chNum);
+[; ;lmp91000.h: 120: bool lmp91000_get_lock(uint8_t* preg);
+[; ;lmp91000.h: 121: bool lmp91000_get_Tiacn(uint8_t* preg);
+[; ;lmp91000.h: 122: bool lmp91000_get_Refcn(uint8_t* preg);
+[; ;lmp91000.h: 123: bool lmp91000_get_Modecn(uint8_t* preg);
+[; ;lmp91000.h: 126: bool lmp91000_set_GainRLoad(uint8_t chNum, uint8_t user_gain, uint8_t RLoad);
+[; ;lmp91000.h: 127: bool lmp91000_set_Reference(uint8_t chNum, uint8_t source, uint8_t IntZ, uint8_t sign, uint8_t bias);
+[; ;lmp91000.h: 128: bool lmp91000_set_Mode(uint8_t chNum, uint8_t fet, uint8_t mode);
+[; ;lmp91000.h: 130: void lmp91000_pin_init(void);
+[; ;lmp91000.h: 131: void lmp91000_enable(LMP_EN chNum);
+[; ;lmp91000.h: 132: void lmp91000_disable(LMP_EN chNum);
+[; ;ads1114.h: 43: typedef enum {
+[; ;ads1114.h: 44: FSR_6p144V,
+[; ;ads1114.h: 45: FSR_4p096V,
+[; ;ads1114.h: 46: FSR_2p048V,
+[; ;ads1114.h: 47: FSR_1p024V,
+[; ;ads1114.h: 48: FSR_0p512V,
+[; ;ads1114.h: 49: FSR_0p256V
+[; ;ads1114.h: 50: } e_ADC_Gain;
+[; ;ads1114.h: 53: typedef enum {
+[; ;ads1114.h: 54: CONTINUE_CONV,
+[; ;ads1114.h: 55: SINGLE_CONV
+[; ;ads1114.h: 56: } e_ADC_Mode;
+[; ;ads1114.h: 59: typedef enum {
+[; ;ads1114.h: 60: SPS8,
+[; ;ads1114.h: 61: SPS16,
+[; ;ads1114.h: 62: SPS32,
+[; ;ads1114.h: 63: SPS64,
+[; ;ads1114.h: 64: SPS128,
+[; ;ads1114.h: 65: SPS250,
+[; ;ads1114.h: 66: SPS475,
+[; ;ads1114.h: 67: SPS860
+[; ;ads1114.h: 68: } e_ADC_DataRate;
+[; ;ads1114.h: 72: typedef enum {
+[; ;ads1114.h: 73: COMP,
+[; ;ads1114.h: 74: WIN_COMP
+[; ;ads1114.h: 75: } e_Comparator_Mode;
+[; ;ads1114.h: 78: typedef enum {
+[; ;ads1114.h: 79: LO,
+[; ;ads1114.h: 80: HI
+[; ;ads1114.h: 81: } e_Comparator_Pol;
+[; ;ads1114.h: 84: typedef enum {
+[; ;ads1114.h: 85: NONE_LATCH,
+[; ;ads1114.h: 86: LATCH
+[; ;ads1114.h: 87: } e_Comparator_Latch;
+[; ;ads1114.h: 90: typedef enum {
+[; ;ads1114.h: 91: ONE_CONV,
+[; ;ads1114.h: 92: TWO_CONV,
+[; ;ads1114.h: 93: FOUR_CONV,
+[; ;ads1114.h: 94: DISABL
+[; ;ads1114.h: 95: } e_Comparator_Que;
+[; ;ads1114.h: 101: bool ads1114_read_ready(uint8_t chNum);
+[; ;ads1114.h: 102: bool ads1115_SetUp(uint8_t chNum, uint8_t mode, uint8_t pga, uint8_t dataRate);
+[; ;ads1114.h: 103: bool ads1114_read(uint8_t chNum, int16_t* raw_adc);
+[; ;ads1114.h: 105: bool ads1114_Comparator_SetUp(uint8_t mode, uint8_t polar, uint8_t latch, uint8_t que);
+[; ;xc8\pic\include\__size_t.h: 4: typedef unsigned size_t;
+[; ;time.h: 8: typedef long time_t;
+[; ;time.h: 9: struct tm {
+[; ;time.h: 10: int tm_sec;
+[; ;time.h: 11: int tm_min;
+[; ;time.h: 12: int tm_hour;
+[; ;time.h: 13: int tm_mday;
+[; ;time.h: 14: int tm_mon;
+[; ;time.h: 15: int tm_year;
+[; ;time.h: 16: int tm_wday;
+[; ;time.h: 17: int tm_yday;
+[; ;time.h: 18: int tm_isdst;
+[; ;time.h: 19: };
+[; ;time.h: 25: extern int time_zone;
+[; ;time.h: 30: extern time_t time(time_t *);
+[; ;time.h: 31: extern int stime(time_t *);
+[; ;time.h: 47: extern char * asctime(const struct tm *) ;
+[; ;time.h: 48: extern char * ctime(const time_t *) ;
+[; ;time.h: 49: extern struct tm * gmtime(const time_t *) ;
+[; ;time.h: 50: extern struct tm * localtime(const time_t *) ;
+[; ;time.h: 51: extern size_t strftime(char *, size_t, const char *, const struct tm *) ;
+[; ;time.h: 52: extern time_t mktime(struct tm *);
+[; ;build_time.h: 79: time_t build_time(void);
+[; ;filter.h: 16: typedef struct
+[; ;filter.h: 17: {
+[; ;filter.h: 18: float _err_measure;
+[; ;filter.h: 19: float _err_estimate;
+[; ;filter.h: 21: float _q_process;
+[; ;filter.h: 23: float _current_estimate;
+[; ;filter.h: 24: float _last_estimate;
+[; ;filter.h: 25: float _kalman_gain;
+[; ;filter.h: 26: } s_KalmanFilter_t;
+[; ;filter.h: 29: typedef enum {
+[; ;filter.h: 30: LEVEL_1 = 1,
+[; ;filter.h: 31: LEVEL_2,
+[; ;filter.h: 32: LEVEL_3,
+[; ;filter.h: 33: LEVEL_4,
+[; ;filter.h: 34: LEVEL_5,
+[; ;filter.h: 35: LEVEL_6,
+[; ;filter.h: 36: LEVEL_7,
+[; ;filter.h: 37: LEVEL_8,
+[; ;filter.h: 38: LEVEL_9,
+[; ;filter.h: 39: LEVEL_10,
+[; ;filter.h: 40: LEVEL_11,
+[; ;filter.h: 41: LEVEL_12,
+[; ;filter.h: 42: LEVEL_13,
+[; ;filter.h: 43: LEVEL_14,
+[; ;filter.h: 44: LEVEL_15
+[; ;filter.h: 45: } e_KalmaFilter_sensitivity;
+[; ;filter.h: 56: float Kalman_updateEstimate(s_KalmanFilter_t *pObj,float mea);
+[; ;filter.h: 57: void Kalman_setMeasurementError(s_KalmanFilter_t *pObj,float mea_e);
+[; ;filter.h: 58: void Kalman_setEstimateError(s_KalmanFilter_t *pObj,float est_e);
+[; ;filter.h: 59: void Kalman_setProcessNoise(s_KalmanFilter_t *pObj,float q);
+[; ;filter.h: 61: float Kalman_getKalmanGain(s_KalmanFilter_t *pObj);
+[; ;filter.h: 62: float Kalman_getEstimateError(s_KalmanFilter_t *pObj);
+[; ;filter.h: 64: void Set_KalmanFilter_Sensitivity(s_KalmanFilter_t *pObj, e_KalmaFilter_sensitivity e_level);
+[; ;nvm.h: 7: typedef union {
+[; ;nvm.h: 8: __pack uint8_t byte[108];
+[; ;nvm.h: 9: __pack struct {
+[; ;nvm.h: 10: uint8_t filter_mode;
+[; ;nvm.h: 11: uint8_t temp_cmp;
+[; ;nvm.h: 12: uint8_t temp_corf;
+[; ;nvm.h: 13: uint8_t CO2_ABC;
+[; ;nvm.h: 14: __pack uint8_t window_size[4];
+[; ;nvm.h: 16: __pack float baseLine_uV[3];
+[; ;nvm.h: 17: __pack float span_uV[3];
+[; ;nvm.h: 18: __pack float CalibrationGas[3];
+[; ;nvm.h: 19: __pack float gas_slope[3];
+[; ;nvm.h: 20: __pack float gasOffset[3];
+[; ;nvm.h: 22: int32_t co2Offset;
+[; ;nvm.h: 23: float tempOffset;
+[; ;nvm.h: 24: float humiOffset;
+[; ;nvm.h: 25: float calib_temp;
+[; ;nvm.h: 28: float KMf_e_measure;
+[; ;nvm.h: 30: uint32_t exectime;
+[; ;nvm.h: 31: uint32_t usedtime;
+[; ;nvm.h: 32: uint32_t buildtime;
+[; ;nvm.h: 33: __pack uint8_t serialNum[8];
+[; ;nvm.h: 34: };
+[; ;nvm.h: 35: } u_Flash_Nvm;
+[; ;nvm.h: 38: typedef enum {
+[; ;nvm.h: 39: NVM_INIT_NONE,
+[; ;nvm.h: 40: NVM_INIT_FLASH,
+[; ;nvm.h: 41: }e_Nvm_Status;
+[; ;nvm.h: 43: typedef struct {
+[; ;nvm.h: 44: uint8_t status;
+[; ;nvm.h: 45: u_Flash_Nvm flash;
+[; ;nvm.h: 46: } s_Nvm;
+[; ;nvm.h: 52: void nvm_init(void);
+[; ;nvm.h: 53: void nvm_clear(void);
+[; ;nvm.h: 54: void nvm_clear_all(void);
+[; ;nvm.h: 56: bool nvm_write_flash_all(u_Flash_Nvm* flash);
+[; ;nvm.h: 57: void nvm_read_flash_all(u_Flash_Nvm* flash);
+[; ;nvm.c: 18: extern s_Nvm g_nvm;
+"20 nvm.c
+[v _nvm_clear_flash `(v ~T0 @X0 1 sf ]
+"21
+{
+[; ;nvm.c: 20: static void nvm_clear_flash(void)
+[; ;nvm.c: 21: {
+[e :U _nvm_clear_flash ]
+[f ]
+[; ;nvm.c: 22: g_nvm.flash.filter_mode = FIL_MODE;
+"22
+[e = . . . _g_nvm 1 1 0 -> . `E44 1 `uc ]
+[; ;nvm.c: 23: g_nvm.flash.temp_corf = CELSIUS;
+"23
+[e = . . . _g_nvm 1 1 2 -> . `E41 0 `uc ]
+[; ;nvm.c: 24: g_nvm.flash.temp_cmp = TEMP_CMP_ON;
+"24
+[e = . . . _g_nvm 1 1 1 -> . `E56 1 `uc ]
+[; ;nvm.c: 25: g_nvm.flash.CO2_ABC = OFF;
+"25
+[e = . . . _g_nvm 1 1 3 -> . `E59 0 `uc ]
+[; ;nvm.c: 28: g_nvm.flash.span_uV[0] = 7114.0f;
+"28
+[e = *U + &U . . . _g_nvm 1 1 6 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 6 `ui `ux -> .7114.0 `f ]
+[; ;nvm.c: 29: g_nvm.flash.span_uV[1] = 67169.0f;
+"29
+[e = *U + &U . . . _g_nvm 1 1 6 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 6 `ui `ux -> .67169.0 `f ]
+[; ;nvm.c: 30: g_nvm.flash.span_uV[2] = 199570.0f;
+"30
+[e = *U + &U . . . _g_nvm 1 1 6 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 6 `ui `ux -> .199570.0 `f ]
+[; ;nvm.c: 32: g_nvm.flash.baseLine_uV[0] = 0.0f;
+"32
+[e = *U + &U . . . _g_nvm 1 1 5 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 5 `ui `ux -> .0.0 `f ]
+[; ;nvm.c: 33: g_nvm.flash.baseLine_uV[1] = 0.0f;
+"33
+[e = *U + &U . . . _g_nvm 1 1 5 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 5 `ui `ux -> .0.0 `f ]
+[; ;nvm.c: 34: g_nvm.flash.baseLine_uV[2] = 0.0f;
+"34
+[e = *U + &U . . . _g_nvm 1 1 5 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 5 `ui `ux -> .0.0 `f ]
+[; ;nvm.c: 36: g_nvm.flash.CalibrationGas[0] = 50.0f;
+"36
+[e = *U + &U . . . _g_nvm 1 1 7 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 7 `ui `ux -> .50.0 `f ]
+[; ;nvm.c: 37: g_nvm.flash.CalibrationGas[1] = 10.0f;
+"37
+[e = *U + &U . . . _g_nvm 1 1 7 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 7 `ui `ux -> .10.0 `f ]
+[; ;nvm.c: 38: g_nvm.flash.CalibrationGas[2] = 49.8f;
+"38
+[e = *U + &U . . . _g_nvm 1 1 7 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 7 `ui `ux -> .49.8 `f ]
+[; ;nvm.c: 40: g_nvm.flash.gas_slope[0] = 0.0f;
+"40
+[e = *U + &U . . . _g_nvm 1 1 8 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 8 `ui `ux -> .0.0 `f ]
+[; ;nvm.c: 41: g_nvm.flash.gas_slope[1] = 0.0f;
+"41
+[e = *U + &U . . . _g_nvm 1 1 8 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 8 `ui `ux -> .0.0 `f ]
+[; ;nvm.c: 42: g_nvm.flash.gas_slope[2] = 0.0f;
+"42
+[e = *U + &U . . . _g_nvm 1 1 8 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 8 `ui `ux -> .0.0 `f ]
+[; ;nvm.c: 44: g_nvm.flash.gasOffset[0] = 0.0f;
+"44
+[e = *U + &U . . . _g_nvm 1 1 9 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 9 `ui `ux -> .0.0 `f ]
+[; ;nvm.c: 45: g_nvm.flash.gasOffset[1] = 0.0f;
+"45
+[e = *U + &U . . . _g_nvm 1 1 9 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 9 `ui `ux -> .0.0 `f ]
+[; ;nvm.c: 46: g_nvm.flash.gasOffset[2] = 0.0f;
+"46
+[e = *U + &U . . . _g_nvm 1 1 9 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 9 `ui `ux -> .0.0 `f ]
+[; ;nvm.c: 48: g_nvm.flash.window_size[0] = LEVEL_15;
+"48
+[e = *U + &U . . . _g_nvm 1 1 4 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 4 `ui `ux -> . `E290 14 `uc ]
+[; ;nvm.c: 49: g_nvm.flash.window_size[1] = LEVEL_12;
+"49
+[e = *U + &U . . . _g_nvm 1 1 4 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 4 `ui `ux -> . `E290 11 `uc ]
+[; ;nvm.c: 50: g_nvm.flash.window_size[2] = LEVEL_12;
+"50
+[e = *U + &U . . . _g_nvm 1 1 4 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 4 `ui `ux -> . `E290 11 `uc ]
+[; ;nvm.c: 51: g_nvm.flash.window_size[3] = LEVEL_1;
+"51
+[e = *U + &U . . . _g_nvm 1 1 4 * -> -> -> 3 `i `ui `ux -> -> # *U &U . . . _g_nvm 1 1 4 `ui `ux -> . `E290 0 `uc ]
+[; ;nvm.c: 53: g_nvm.flash.co2Offset = 0;
+"53
+[e = . . . _g_nvm 1 1 10 -> -> 0 `i `l ]
+[; ;nvm.c: 54: g_nvm.flash.tempOffset = 0.0f;
+"54
+[e = . . . _g_nvm 1 1 11 -> .0.0 `f ]
+[; ;nvm.c: 55: g_nvm.flash.humiOffset = 0.0f;
+"55
+[e = . . . _g_nvm 1 1 12 -> .0.0 `f ]
+[; ;nvm.c: 56: g_nvm.flash.calib_temp = 0.0f;
+"56
+[e = . . . _g_nvm 1 1 13 -> .0.0 `f ]
+[; ;nvm.c: 58: g_nvm.flash.KMf_e_measure = 40.0f;
+"58
+[e = . . . _g_nvm 1 1 14 -> .40.0 `f ]
+[; ;nvm.c: 60: g_nvm.flash.exectime = 0;
+"60
+[e = . . . _g_nvm 1 1 15 -> -> -> 0 `i `l `ul ]
+[; ;nvm.c: 61: g_nvm.flash.usedtime = 0;
+"61
+[e = . . . _g_nvm 1 1 16 -> -> -> 0 `i `l `ul ]
+[; ;nvm.c: 62: g_nvm.flash.buildtime = (uint32_t)build_time();
+"62
+[e = . . . _g_nvm 1 1 17 -> ( _build_time ..  `ul ]
+[; ;nvm.c: 63: }
+"63
+[e :UE 10 ]
+}
+"65
+[v _nvm_clear `(v ~T0 @X0 1 ef ]
+"66
+{
+[; ;nvm.c: 65: void nvm_clear(void)
+[; ;nvm.c: 66: {
+[e :U _nvm_clear ]
+[f ]
+[; ;nvm.c: 67: nvm_clear_flash();
+"67
+[e ( _nvm_clear_flash ..  ]
+[; ;nvm.c: 68: }
+"68
+[e :UE 11 ]
+}
+"70
+[v _nvm_clear_all `(v ~T0 @X0 1 ef ]
+"71
+{
+[; ;nvm.c: 70: void nvm_clear_all(void)
+[; ;nvm.c: 71: {
+[e :U _nvm_clear_all ]
+[f ]
+"72
+[v _i `uc ~T0 @X0 1 a ]
+[; ;nvm.c: 72: uint8_t i;
+[; ;nvm.c: 73: nvm_clear();
+"73
+[e ( _nvm_clear ..  ]
+[; ;nvm.c: 74: for (i = 0 ; i < 8 ; i++) g_nvm.flash.serialNum[i] = 0xff;
+"74
+{
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 8 `i 13  ]
+[e $U 14  ]
+[e :U 13 ]
+[e = *U + &U . . . _g_nvm 1 1 18 * -> _i `ux -> -> # *U &U . . . _g_nvm 1 1 18 `ui `ux -> -> 255 `i `uc ]
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 8 `i 13  ]
+[e :U 14 ]
+}
+[; ;nvm.c: 75: }
+"75
+[e :UE 12 ]
+}
+"77
+[v _nvm_serialno_check `(uc ~T0 @X0 1 sf1`*Cuc ]
+"78
+{
+[; ;nvm.c: 77: static bool nvm_serialno_check(const uint8_t* sno)
+[; ;nvm.c: 78: {
+[e :U _nvm_serialno_check ]
+"77
+[v _sno `*Cuc ~T0 @X0 1 r1 ]
+"78
+[f ]
+"79
+[v _i `uc ~T0 @X0 1 a ]
+[; ;nvm.c: 79: uint8_t i;
+[; ;nvm.c: 80: for (i = 0 ; i < 8 ; i++) {
+"80
+{
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 8 `i 17  ]
+[e $U 18  ]
+[e :U 17 ]
+{
+[; ;nvm.c: 81: if (sno[i] == 0xff || sno[i] == 0x00)
+"81
+[e $ ! || == -> *U + _sno * -> _i `ux -> -> # *U _sno `ui `ux `i -> 255 `i == -> *U + _sno * -> _i `ux -> -> # *U _sno `ui `ux `i -> 0 `i 20  ]
+[; ;nvm.c: 82: return 0;
+"82
+[e ) -> -> 0 `i `uc ]
+[e $UE 16  ]
+[e :U 20 ]
+"83
+}
+"80
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 8 `i 17  ]
+[e :U 18 ]
+"83
+}
+[; ;nvm.c: 83: }
+[; ;nvm.c: 84: return 1;
+"84
+[e ) -> -> 1 `i `uc ]
+[e $UE 16  ]
+[; ;nvm.c: 85: }
+"85
+[e :UE 16 ]
+}
+"87
+[v _nvm_init `(v ~T0 @X0 1 ef ]
+"88
+{
+[; ;nvm.c: 87: void nvm_init(void)
+[; ;nvm.c: 88: {
+[e :U _nvm_init ]
+[f ]
+"89
+[v _i `uc ~T0 @X0 1 a ]
+[; ;nvm.c: 89: uint8_t i;
+[; ;nvm.c: 91: nvm_read_flash_all(&g_nvm.flash);
+"91
+[e ( _nvm_read_flash_all (1 &U . _g_nvm 1 ]
+[; ;nvm.c: 92: g_nvm.status = NVM_INIT_FLASH;
+"92
+[e = . _g_nvm 0 -> . `E350 1 `uc ]
+[; ;nvm.c: 94: if (nvm_serialno_check(g_nvm.flash.serialNum)) {
+"94
+[e $ ! != -> ( _nvm_serialno_check (1 -> &U . . . _g_nvm 1 1 18 `*Cuc `i -> -> -> 0 `i `uc `i 22  ]
+{
+"95
+[v _pdesc `*ui ~T0 @X0 1 a ]
+[; ;nvm.c: 95: uint16_t* pdesc = get_product_desc();
+[e = _pdesc ( _get_product_desc ..  ]
+[; ;nvm.c: 96: for (i = 0 ; i < 8 ; i++)
+"96
+{
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 8 `i 23  ]
+[e $U 24  ]
+"97
+[e :U 23 ]
+[; ;nvm.c: 97: pdesc[i + 11] = g_nvm.flash.serialNum[i];
+[e = *U + _pdesc * -> + -> _i `i -> 11 `i `x -> -> # *U _pdesc `i `x -> *U + &U . . . _g_nvm 1 1 18 * -> _i `ux -> -> # *U &U . . . _g_nvm 1 1 18 `ui `ux `ui ]
+"96
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 8 `i 23  ]
+[e :U 24 ]
+"97
+}
+"98
+}
+[; ;nvm.c: 98: } else {
+[e $U 26  ]
+[e :U 22 ]
+{
+[; ;nvm.c: 99: nvm_clear();
+"99
+[e ( _nvm_clear ..  ]
+[; ;nvm.c: 100: if (nvm_write_flash_all(&g_nvm.flash) == 0)
+"100
+[e $ ! == -> ( _nvm_write_flash_all (1 &U . _g_nvm 1 `i -> 0 `i 27  ]
+[; ;nvm.c: 101: return;
+"101
+[e $UE 21  ]
+[e :U 27 ]
+[; ;nvm.c: 102: g_nvm.status = NVM_INIT_FLASH;
+"102
+[e = . _g_nvm 0 -> . `E350 1 `uc ]
+"103
+}
+[e :U 26 ]
+[; ;nvm.c: 103: }
+[; ;nvm.c: 104: }
+"104
+[e :UE 21 ]
+}
+"106
+[v _nvm_write_flash_all `(uc ~T0 @X0 1 ef1`*S7 ]
+"107
+{
+[; ;nvm.c: 106: bool nvm_write_flash_all(u_Flash_Nvm* flash)
+[; ;nvm.c: 107: {
+[e :U _nvm_write_flash_all ]
+"106
+[v _flash `*S7 ~T0 @X0 1 r1 ]
+"107
+[f ]
+[; ;nvm.c: 108: flash_clear(0xf400, (0xf400 + 108));
+"108
+[e ( _flash_clear (2 , -> -> 62464 `ui `ul -> + -> 62464 `ui -> -> 108 `i `ui `ul ]
+[; ;nvm.c: 109: return flash_writeBytes(0xf400, flash->byte, 108);
+"109
+[e ) ( _flash_writeBytes (3 , , -> -> 62464 `ui `ul -> &U . *U _flash 0 `*uc -> -> 108 `i `ui ]
+[e $UE 28  ]
+[; ;nvm.c: 110: }
+"110
+[e :UE 28 ]
+}
+"112
+[v _nvm_read_flash_all `(v ~T0 @X0 1 ef1`*S7 ]
+"113
+{
+[; ;nvm.c: 112: void nvm_read_flash_all(u_Flash_Nvm* flash)
+[; ;nvm.c: 113: {
+[e :U _nvm_read_flash_all ]
+"112
+[v _flash `*S7 ~T0 @X0 1 r1 ]
+"113
+[f ]
+[; ;nvm.c: 114: flash_readBytes(0xf400, flash->byte, 108);
+"114
+[e ( _flash_readBytes (3 , , -> -> 62464 `ui `ul -> &U . *U _flash 0 `*uc -> -> 108 `i `ui ]
+[; ;nvm.c: 115: }
+"115
+[e :UE 29 ]
+}

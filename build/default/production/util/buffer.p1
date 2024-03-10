@@ -1,0 +1,211 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"6 util/buffer.h
+[s S1 `uc 1 `c 1 `c 1 `uc -> 64 `i ]
+[n S1 buff_queue size read_pos write_pos buffer ]
+[; ;stdbool.h: 15: typedef unsigned char bool;
+[; ;stdint.h: 13: typedef signed char int8_t;
+[; ;stdint.h: 20: typedef signed int int16_t;
+[; ;stdint.h: 28: typedef __int24 int24_t;
+[; ;stdint.h: 36: typedef signed long int int32_t;
+[; ;stdint.h: 52: typedef unsigned char uint8_t;
+[; ;stdint.h: 58: typedef unsigned int uint16_t;
+[; ;stdint.h: 65: typedef __uint24 uint24_t;
+[; ;stdint.h: 72: typedef unsigned long int uint32_t;
+[; ;stdint.h: 88: typedef signed char int_least8_t;
+[; ;stdint.h: 96: typedef signed int int_least16_t;
+[; ;stdint.h: 109: typedef __int24 int_least24_t;
+[; ;stdint.h: 118: typedef signed long int int_least32_t;
+[; ;stdint.h: 136: typedef unsigned char uint_least8_t;
+[; ;stdint.h: 143: typedef unsigned int uint_least16_t;
+[; ;stdint.h: 154: typedef __uint24 uint_least24_t;
+[; ;stdint.h: 162: typedef unsigned long int uint_least32_t;
+[; ;stdint.h: 181: typedef signed char int_fast8_t;
+[; ;stdint.h: 188: typedef signed int int_fast16_t;
+[; ;stdint.h: 200: typedef __int24 int_fast24_t;
+[; ;stdint.h: 208: typedef signed long int int_fast32_t;
+[; ;stdint.h: 224: typedef unsigned char uint_fast8_t;
+[; ;stdint.h: 230: typedef unsigned int uint_fast16_t;
+[; ;stdint.h: 240: typedef __uint24 uint_fast24_t;
+[; ;stdint.h: 247: typedef unsigned long int uint_fast32_t;
+[; ;stdint.h: 268: typedef int32_t intmax_t;
+[; ;stdint.h: 282: typedef uint32_t uintmax_t;
+[; ;stdint.h: 289: typedef int16_t intptr_t;
+[; ;stdint.h: 294: typedef uint16_t uintptr_t;
+[; ;xc8\pic\include\__size_t.h: 4: typedef unsigned size_t;
+[; ;string.h: 14: extern void * memcpy(void *, const void *, size_t);
+[; ;string.h: 15: extern void * memmove(void *, const void *, size_t);
+[; ;string.h: 16: extern void * memset(void *, int, size_t);
+[; ;string.h: 36: extern char * strcat(char *, const char *);
+[; ;string.h: 37: extern char * strcpy(char *, const char *);
+[; ;string.h: 38: extern char * strncat(char *, const char *, size_t);
+[; ;string.h: 39: extern char * strncpy(char *, const char *, size_t);
+[; ;string.h: 40: extern char * strdup(const char *);
+[; ;string.h: 41: extern char * strtok(char *, const char *);
+[; ;string.h: 44: extern int memcmp(const void *, const void *, size_t);
+[; ;string.h: 45: extern int strcmp(const char *, const char *);
+[; ;string.h: 46: extern int stricmp(const char *, const char *);
+[; ;string.h: 47: extern int strncmp(const char *, const char *, size_t);
+[; ;string.h: 48: extern int strnicmp(const char *, const char *, size_t);
+[; ;string.h: 49: extern void * memchr(const void *, int, size_t);
+[; ;string.h: 50: extern size_t strcspn(const char *, const char *);
+[; ;string.h: 51: extern char * strpbrk(const char *, const char *);
+[; ;string.h: 52: extern size_t strspn(const char *, const char *);
+[; ;string.h: 53: extern char * strstr(const char *, const char *);
+[; ;string.h: 54: extern char * stristr(const char *, const char *);
+[; ;string.h: 55: extern char * strerror(int);
+[; ;string.h: 56: extern size_t strlen(const char *);
+[; ;string.h: 57: extern char * strchr(const char *, int);
+[; ;string.h: 58: extern char * strichr(const char *, int);
+[; ;string.h: 59: extern char * strrchr(const char *, int);
+[; ;string.h: 60: extern char * strrichr(const char *, int);
+[; ;buffer.h: 6: typedef struct buff_queue
+[; ;buffer.h: 7: {
+[; ;buffer.h: 8: uint8_t size;
+[; ;buffer.h: 9: int8_t read_pos;
+[; ;buffer.h: 10: int8_t write_pos;
+[; ;buffer.h: 11: uint8_t buffer[64];
+[; ;buffer.h: 12: } s_Queue;
+[; ;buffer.h: 18: void buffer_init(s_Queue* queue);
+[; ;buffer.h: 19: void buffer_en_queue(s_Queue* queue, uint8_t ch);
+[; ;buffer.h: 20: uint8_t buffer_de_queue(s_Queue* queue);
+[; ;buffer.h: 21: bool buffer_de_queue_bool(s_Queue* queue, uint8_t* ch);
+[; ;_string.h: 10: unsigned _strcpy(char* dest, const char* source);
+[; ;_string.h: 11: void _strncpy(char *_to, const char *_from, int _n);
+[; ;_string.h: 12: unsigned _strlen(const char* source);
+[; ;_string.h: 13: void _strcat(char* dest, const char* source);
+[; ;_string.h: 15: unsigned char _strncmp(const char* src1, const char* src2, int n, int i);
+[; ;_string.h: 16: void _strclr(char* dest, int n);
+[; ;_string.h: 18: unsigned char _isdigit(const char* src, int n);
+"9 util/buffer.c
+[v _buffer_init `(v ~T0 @X0 1 ef1`*S1 ]
+"10
+{
+[; ;buffer.c: 9: void buffer_init(s_Queue* queue)
+[; ;buffer.c: 10: {
+[e :U _buffer_init ]
+"9
+[v _queue `*S1 ~T0 @X0 1 r1 ]
+"10
+[f ]
+[; ;buffer.c: 11: queue->size = 64;
+"11
+[e = . *U _queue 0 -> -> 64 `i `uc ]
+[; ;buffer.c: 12: queue->read_pos = 0;
+"12
+[e = . *U _queue 1 -> -> 0 `i `c ]
+[; ;buffer.c: 13: queue->write_pos = 0;
+"13
+[e = . *U _queue 2 -> -> 0 `i `c ]
+[; ;buffer.c: 14: }
+"14
+[e :UE 2 ]
+}
+"16
+[v _buffer_en_queue `(v ~T0 @X0 1 ef2`*S1`uc ]
+"17
+{
+[; ;buffer.c: 16: void buffer_en_queue(s_Queue* queue, uint8_t ch)
+[; ;buffer.c: 17: {
+[e :U _buffer_en_queue ]
+"16
+[v _queue `*S1 ~T0 @X0 1 r1 ]
+[v _ch `uc ~T0 @X0 1 r2 ]
+"17
+[f ]
+[; ;buffer.c: 18: queue->buffer[queue->write_pos] = ch;
+"18
+[e = *U + &U . *U _queue 3 * -> -> . *U _queue 2 `uc `ux -> -> # *U &U . *U _queue 3 `ui `ux _ch ]
+[; ;buffer.c: 19: queue->write_pos = (++queue->write_pos)%64;
+"19
+[e = . *U _queue 2 -> % -> =+ . *U _queue 2 -> -> 1 `i `c `i -> 64 `i `c ]
+[; ;buffer.c: 20: }
+"20
+[e :UE 3 ]
+}
+"23
+[v _buffer_de_queue `(uc ~T0 @X0 1 ef1`*S1 ]
+"24
+{
+[; ;buffer.c: 23: uint8_t buffer_de_queue(s_Queue* queue)
+[; ;buffer.c: 24: {
+[e :U _buffer_de_queue ]
+"23
+[v _queue `*S1 ~T0 @X0 1 r1 ]
+"24
+[f ]
+"25
+[v _ch `uc ~T0 @X0 1 a ]
+[; ;buffer.c: 25: uint8_t ch = 0;
+[e = _ch -> -> 0 `i `uc ]
+[; ;buffer.c: 26: if (queue->read_pos == queue->write_pos)
+"26
+[e $ ! == -> . *U _queue 1 `i -> . *U _queue 2 `i 5  ]
+[; ;buffer.c: 27: return ch;
+"27
+[e ) _ch ]
+[e $UE 4  ]
+[e $U 6  ]
+"28
+[e :U 5 ]
+[; ;buffer.c: 28: else {
+{
+[; ;buffer.c: 29: ch = queue->buffer[queue->read_pos];
+"29
+[e = _ch *U + &U . *U _queue 3 * -> -> . *U _queue 1 `uc `ux -> -> # *U &U . *U _queue 3 `ui `ux ]
+[; ;buffer.c: 30: queue->read_pos = (++queue->read_pos)%64;
+"30
+[e = . *U _queue 1 -> % -> =+ . *U _queue 1 -> -> 1 `i `c `i -> 64 `i `c ]
+"31
+}
+[e :U 6 ]
+[; ;buffer.c: 31: }
+[; ;buffer.c: 32: return ch;
+"32
+[e ) _ch ]
+[e $UE 4  ]
+[; ;buffer.c: 33: }
+"33
+[e :UE 4 ]
+}
+"36
+[v _buffer_de_queue_bool `(uc ~T0 @X0 1 ef2`*S1`*uc ]
+"37
+{
+[; ;buffer.c: 36: bool buffer_de_queue_bool(s_Queue* queue, uint8_t* ch)
+[; ;buffer.c: 37: {
+[e :U _buffer_de_queue_bool ]
+"36
+[v _queue `*S1 ~T0 @X0 1 r1 ]
+[v _ch `*uc ~T0 @X0 1 r2 ]
+"37
+[f ]
+[; ;buffer.c: 38: if (queue->read_pos == queue->write_pos)
+"38
+[e $ ! == -> . *U _queue 1 `i -> . *U _queue 2 `i 8  ]
+[; ;buffer.c: 39: return 0;
+"39
+[e ) -> -> 0 `i `uc ]
+[e $UE 7  ]
+[e $U 9  ]
+"40
+[e :U 8 ]
+[; ;buffer.c: 40: else {
+{
+[; ;buffer.c: 41: *ch = queue->buffer[queue->read_pos];
+"41
+[e = *U _ch *U + &U . *U _queue 3 * -> -> . *U _queue 1 `uc `ux -> -> # *U &U . *U _queue 3 `ui `ux ]
+[; ;buffer.c: 42: queue->read_pos = (++queue->read_pos)%64;
+"42
+[e = . *U _queue 1 -> % -> =+ . *U _queue 1 -> -> 1 `i `c `i -> 64 `i `c ]
+"43
+}
+[e :U 9 ]
+[; ;buffer.c: 43: }
+[; ;buffer.c: 44: return 1;
+"44
+[e ) -> -> 1 `i `uc ]
+[e $UE 7  ]
+[; ;buffer.c: 45: }
+"45
+[e :UE 7 ]
+}
